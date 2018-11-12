@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="webjars/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <section class="col-lg-3">
+            <h3>Position</h3>
+            <div class="row">
+                <input type="button" class="btn btn-dark col-md-3 offset-md-2" onclick="location.href='/up'" value="up"/>
+            </div>
+            <div class="row">
+                <input type="button" class="btn btn-dark col-md-3" onclick="location.href='/left'" value="left"/>
+                <input type="button" class="btn btn-dark col-md-3  offset-md-1" onclick="location.href='/right'" value="right"/>
+            </div>
+            <div class="row">
+                <input class="btn btn-dark col-md-3 offset-md-2" onclick="location.href='/down'" value="down"/>
+            </div>
+        </section>
+
+        <section class="col-lg-3">
+            <h3>Zoom</h3>
+            <div class="row">
+                <input type="button" class="btn btn-outline-success col-md-3 offset-md-1" onclick="location.href='/zoomTele'" value="Tele"/>
+            </div>
+            <div class="row">
+                <input type="button" class="btn btn-outline-success col-md-3 offset-md-1" onclick="location.href='/zoomWide'" value="Wide"/>
+            </div>
+
+        </section>
+
+        <section class="col-lg-3">
+            <h3>Common</h3>
+            <div class="row">
+                <input type="button" class="btn btn-danger col-md-3 offset-md-1" onclick="location.href='/home'" value="Home"/>
+            </div>
+            <div class="row">
+                <form method="post"  action="/setSeconds">
+                    <div class="row">
+                        <label>Seconds:</label>
+                    </div>
+                    <div class="row">
+                        <input type="number" id="seconds" />
+                    </div>
+                    <div class="row">
+                        <input type="submit" class="btn btn-danger col-md-3 offset-md-1" value="Set"/>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+
+</body>
+</html>
