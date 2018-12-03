@@ -2,6 +2,7 @@ package main.commands;
 
 import jssc.SerialPort;
 import jssc.SerialPortException;
+import main.converters.ByteArrayToStringConverter;
 
 public class ClearAll extends ViscaCommand {
 
@@ -15,7 +16,7 @@ public class ClearAll extends ViscaCommand {
     public void execute() {
         this.commandData = duplicateArray(clearAllCommandData);
         this.destinationAdr = 8;
-        System.out.println("@ " + byteArrayToString(getCommandData()));
+        System.out.println("@ " + ByteArrayToStringConverter.convert(getCommandData()));
         try {
             serialPort.writeBytes(this.commandData);
         } catch (SerialPortException e) {
