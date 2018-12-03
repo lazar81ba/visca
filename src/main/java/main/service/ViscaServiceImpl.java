@@ -1,7 +1,8 @@
 package main.service;
 
-import jssc.SerialPortException;
-import main.component.ViscaComponent;
+import jssc.SerialPort;
+import main.commands.*;
+import main.component.ViscaCommandInvoker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,85 +10,69 @@ import org.springframework.stereotype.Service;
 public class ViscaServiceImpl implements ViscaService{
 
     @Autowired
-    ViscaComponent viscaComponent;
+    ViscaCommandInvoker viscaCommandInvoker;
 
-    private int seconds=1;
+    @Autowired
+    private SerialPort serialPort;
 
-    public ViscaServiceImpl(ViscaComponent viscaComponent){
-        this.viscaComponent = viscaComponent;
+    public ViscaServiceImpl(ViscaCommandInvoker viscaCommandInvoker){
+        this.viscaCommandInvoker = viscaCommandInvoker;
     }
 
     @Override
     public void up() {
-        try {
-            viscaComponent.sendPanTiltUp();
-            viscaComponent.sleep(seconds);
-        } catch (SerialPortException e) {
-            e.printStackTrace();
-        }
+        viscaCommandInvoker.executeCommand(new PanTiltUp(serialPort));
     }
 
-    @Override
-    public void down() {
-        try {
-            viscaComponent.sendPanTiltDown();
-            viscaComponent.sleep(seconds);
-        } catch (SerialPortException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void right() {
-        try {
-            viscaComponent.sendPanTiltRight();
-            viscaComponent.sleep(seconds);
-        } catch (SerialPortException e) {
-            e.printStackTrace();
-        }
+        viscaCommandInvoker.executeCommand(new PanTiltRight(serialPort));
     }
 
     @Override
     public void left() {
-        try {
-            viscaComponent.sendPanTiltLeft();
-            viscaComponent.sleep(seconds);
-        } catch (SerialPortException e) {
-            e.printStackTrace();
-        }
+        viscaCommandInvoker.executeCommand(new PanTiltLeft(serialPort));
+
     }
 
     @Override
     public void zoomTele() {
-        try {
-            viscaComponent.sendZoomTeleStd();
-            viscaComponent.sleep(seconds);
-        } catch (SerialPortException e) {
-            e.printStackTrace();
-        }
+        viscaCommandInvoker.executeCommand(new ZoomTele(serialPort));
+
     }
 
     @Override
     public void zoomWide() {
-        try {
-            viscaComponent.sendZoomWideStd();
-            viscaComponent.sleep(seconds);
-        } catch (SerialPortException e) {
-            e.printStackTrace();
-        }
-    }
+        viscaCommandInvoker.executeCommand(new ZoomWide(serialPort));
 
-    @Override
-    public void setSleep(int seconds) {
-        this.seconds = seconds;
     }
 
     @Override
     public void home() {
-        try {
-            viscaComponent.sendPanTiltHome();
-        } catch (SerialPortException e) {
-            e.printStackTrace();
-        }
+        viscaCommandInvoker.executeCommand(new PanTiltHome(serialPort));
+
+    }
+
+    @Override
+    public void absolute() {
+        viscaCommandInvoker.executeCommand(new PanTiltAbsolute(serialPort));
+
+    }
+
+    @Override
+    public void getMaxSpeed() {
+        viscaCommandInvoker.executeCommand(new GetPanTiltMaxSpeed(serialPort));
+    }
+
+    @Override
+    public void clearAll() {
+        viscaCommandInvoker.executeCommand(new ClearAll(serialPort));
+
+    }
+
+    @Override
+    public void sendAddress() {
+        viscaCommandInvoker.executeCommand(new SendAdrress(serialPort));
     }
 }
