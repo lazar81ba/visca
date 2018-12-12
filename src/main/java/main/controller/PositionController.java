@@ -1,6 +1,5 @@
 package main.controller;
 
-import main.component.ViscaComponent;
 import main.service.ViscaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +42,12 @@ public class PositionController {
     @GetMapping("/home")
     public String home() {
         viscaService.home();
+        return "main";
+    }
+
+    @GetMapping("/absolute")
+    public String absolute() {
+        viscaService.absolute();
         return "main";
     }
 }

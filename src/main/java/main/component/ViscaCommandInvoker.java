@@ -40,4 +40,8 @@ public class ViscaCommandInvoker {
             var2.printStackTrace();
         }
     }
+
+    public void setSleepTime(int seconds){
+        this.timeSec = seconds;
+    }
 }
