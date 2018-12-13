@@ -4,7 +4,7 @@ import jssc.SerialPort;
 import jssc.SerialPortException;
 import main.converters.ByteArrayToStringConverter;
 
-public class PanTiltUp extends ViscaCommand implements PanSpeed,TiltSpeed{
+public class PanTiltUp extends ViscaCommand {
     private final byte[] ptUpCommandData = new byte[]{1, 6, 1, 0, 0, 3, 1};
 
     public PanTiltUp(SerialPort serialPort) {
@@ -15,25 +15,18 @@ public class PanTiltUp extends ViscaCommand implements PanSpeed,TiltSpeed{
     @Override
     public void execute() {
         this.commandData = duplicateArray(ptUpCommandData);
-        changePanSpeed((byte) 1);
-        changeTiltSpeed((byte) 2);
-        this.destinationAdr = 1;
-        System.out.println("@ " + ByteArrayToStringConverter.convert(getCommandData()));
+        this.commandData[3] = panSpeed;
+        this.commandData[4] = tiltSpeed;
+        System.out.println("Pan tilt up");
         try {
-            serialPort.writeBytes(this.commandData);
+            serialPort.writeBytes(getCommandData());
         } catch (SerialPortException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void changePanSpeed(byte speed) {
-        this.commandData[3] = speed;
-
-    }
-
-    @Override
-    public void changeTiltSpeed(byte speed) {
-        this.commandData[4] = speed;
+    public void changeDestination(byte dest) {
+        this.destinationAdr=dest;
     }
 }

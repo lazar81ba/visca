@@ -15,14 +15,26 @@ public class ZoomWide extends ViscaCommand {
     @Override
     public void execute() {
         this.commandData = duplicateArray(ptWideStdCommandData);
-        this.destinationAdr = 1;
-        System.out.println("@ " + ByteArrayToStringConverter.convert(getCommandData()));
+        System.out.println("Zooming wide");
         try {
-            serialPort.writeBytes(this.commandData);
+            serialPort.writeBytes(getCommandData());
         } catch (SerialPortException e) {
             e.printStackTrace();
         }
     }
+    @Override
+    public void changeDestination(byte dest) {
+        this.destinationAdr=dest;
+    }
 
 
+    @Override
+    public void changePanSpeed(byte speed) {
+
+    }
+
+    @Override
+    public void changeTiltSpeed(byte speed) {
+
+    }
 }

@@ -14,29 +14,23 @@ public class PanTiltAbsolute extends ViscaCommand implements PanSpeed,TiltSpeed{
     @Override
     public void execute() {
         this.commandData = duplicateArray(ptAbsolutePosCommandData);
-        changePanSpeed((byte) 1);
+        this.commandData[3] = panSpeed;
         this.commandData[5] = 0;
         this.commandData[6] = 3;
         this.commandData[7] = 7;
         this.commandData[8] = 5;
         this.commandData[9] = 0;
-        this.destinationAdr = 1;
-        System.out.println("@ " + ByteArrayToStringConverter.convert(getCommandData()));
+        System.out.println("Pan tilt absolute");
         try {
-            serialPort.writeBytes(this.commandData);
+            serialPort.writeBytes(getCommandData());
         } catch (SerialPortException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void changePanSpeed(byte speed) {
-        this.commandData[3] = speed;
-
-    }
 
     @Override
-    public void changeTiltSpeed(byte speed) {
-        this.commandData[4] = speed;
+    public void changeDestination(byte dest) {
+        this.destinationAdr=dest;
     }
 }

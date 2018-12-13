@@ -3,17 +3,17 @@ package main.service;
 
 
 public interface ViscaService {
-    void up();
-    void down();
-    void right();
-    void left();
-    void zoomTele();
-    void zoomWide();
-    void home();
-    void absolute();
-    void getMaxSpeed();
-    void clearAll();
-    void sendAddress();
-    void focusNear();
-    void focusFar();
+    String up();
+    String down();
+    String right();
+    String left();
+    String zoomTele();
+    String zoomWide();
+    String home();
+    String absolute();
+    String getMaxSpeed();
+    String clearAll();
+    String sendAddress();
+    String focusNear();
+    String focusFar();
 }

@@ -15,12 +15,25 @@ public class FocusFar extends ViscaCommand {
     @Override
     public void execute() {
         this.commandData = duplicateArray(ptFocusFarCommandData);
-        this.destinationAdr = 1;
-        System.out.println("@ " + ByteArrayToStringConverter.convert(getCommandData()));
+        System.out.println("Focusing far");
         try {
-            serialPort.writeBytes(this.commandData);
+            serialPort.writeBytes(getCommandData());
         } catch (SerialPortException e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    public void changeDestination(byte dest) {
+        this.destinationAdr=dest;
+    }
+
+    @Override
+    public void changePanSpeed(byte speed) {
+
+    }
+
+    @Override
+    public void changeTiltSpeed(byte speed) {
+
     }
 }

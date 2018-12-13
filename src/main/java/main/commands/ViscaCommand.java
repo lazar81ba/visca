@@ -2,10 +2,13 @@ package main.commands;
 
 import jssc.SerialPort;
 
-public abstract class ViscaCommand {
+public abstract class ViscaCommand implements Destination, TiltSpeed,PanSpeed{
     protected byte sourceAdr = 0;
-    protected byte destinationAdr;
+    protected byte destinationAdr = 1;
     protected byte[] commandData;
+    protected byte panSpeed = 6;
+    protected byte tiltSpeed = 6;
+
     SerialPort serialPort;
 
     public ViscaCommand(SerialPort serialPort) {
@@ -29,6 +32,17 @@ public abstract class ViscaCommand {
         byte[] dest = new byte[src.length];
         System.arraycopy(src, 0, dest, 0, src.length);
         return dest;
+    }
+
+    @Override
+    public void changePanSpeed(byte speed) {
+        this.panSpeed = speed;
+
+    }
+
+    @Override
+    public void changeTiltSpeed(byte speed) {
+        this.tiltSpeed = speed;
     }
 
 }
